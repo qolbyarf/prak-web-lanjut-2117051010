@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,8 +15,11 @@
         }
     </style>
 </head>
-<body>
-    <div class="box">
+<body> -->
+    
+<?= $this->extend('layouts/app')?>
+<?= $this->section('content')?>
+<div class="box">
     
     <img src="<?=base_url('poto.jpg');?>" style="width : 250px;" alt="">
     <h1>
@@ -31,5 +34,7 @@
  
 
     </div>
-</body>
-</html>
+    <?=$this->endSection()?>
+
+<!-- </body>
+</html> -->

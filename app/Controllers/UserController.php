@@ -40,6 +40,17 @@ class UserController extends BaseController
         return view('edit_user', $data);
     }
 
+    public function show($id)
+    {
+        $user = $this->userModel->getUser($id);
+
+        $data = [
+            'title' => 'Profile',
+            'user' => $user,
+        ];
+        return view('profile', $data);
+    }
+
     public function profile($nama = "", $kelas = "", $npm = "")
     {
         $data = [

@@ -1,57 +1,44 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<body> -->
-
-<?= $this->extend('layouts/app')?>
-<?= $this->section('content')?>
-<?php $nama_kelas = session()->getFlashdata('nama_kelas');?>
-
-<form action="<?= base_url('/user/store')?>" method="post">
-  <div class="mb-3">
-    <label for="nama" class="form-label">Nama</label>
-    <input <?php $nama_kelas = session()->getFlashdata('nama_kelas');?>
-    class="<?= (empty(validation_show_error('nama')))?'':'is_valid'?>"
-    type="nama" id="nama" aria-describedby="emailHelp" name="nama">
-    <?php $nama_kelas = session()->getFlashdata('nama_kelas');?>
-    <?= (empty(validation_show_error('nama')))?'':'is_valid'?>
-<div class="invalid-feedback">
-    <?= validation_show_error('nama')?>
-  </div>
-    
-  </div>
-  <div class="mb-3">
-    <label for="npm" class="form-label">NPM</label>
-    <input 
-    class="<?= (empty(validation_show_error('npm')))?'' : 'is-invalid'?>
-    type="text" id="npm" name="npm">
-    <div class="invalid-feedback">
-  <?= validation_show_error('npm') ?><br>
-  </div>
-  <div class="mb-3">
-    <label for="kelas" class="form-label">Kelas</label>
-    <!-- <input type="text" class="form-control" id="kelas" name="kelas"> -->
-    <select name="kelas" id="kelas">
+<?= $this->extend('layouts/app') ?>
+<?= $this->section('content') ?>
+<main class="form-signin w-100 m-auto">
+  <form method="POST" action="<?= base_url('/user/store') ?>" enctype="multipart/form-data">
+    <h1 class="h3 mt-5 mb-3 fw-normal">Tambah User</h1>
+    <div class="form-floating">
+      <input type="text" class="form-control mt-2 <?= session('validation') && session('validation')->hasError('nama') ? 'is-invalid' : '' ?>" id="floatingName" placeholder="Nama" name="nama" value="<?= old('nama') ?>">
+      <label for="floatingName">Nama</label>
+      <?php if (session('validation') && session('validation')->hasError('nama')) : ?>
+        <div class="invalid-feedback">
+          <?= session('validation')->getError('nama'); ?>
+        </div>
+      <?php endif; ?>
+    </div>
+    </div>
+    <div class="form-floating">
+      <input type="number" class="form-control mt-2 <?= session('validation') ? 'is-invalid' : '' ?>" id="floatingNpm" placeholder="NPM" name="npm" value="<?= old('npm') ?>">
+      <label for="floatingNpm">NPM</label>
+      <?php if (session('validation') && session('validation')->hasError('npm')) : ?>
+        <div class="invalid-feedback">
+          <?= session('validation')->getError('npm'); ?>
+        </div>
+      <?php endif; ?>
+    </div>
+    <select class="form-select mt-2" aria-label="Default select example" name="kelas">
+      <option value="" selected disabled>Pilih Kelas</option>
       <?php
-      foreach ($kelas as $item){
-        ?>
-        <option value="<?= $item['id'] ?>">
-        <?= $item['nama_kelas']?>
-      </option>
-      <?php
-      }
+      foreach ($kelas as $item) {
       ?>
-      </select>
-  </div>
-  
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-<?=$this->endSection()?>
+        <option value="<?= $item['id'] ?>"><?= $item['nama_kelas'] ?></option>
+      <?php } ?>
+    </select>
+    <div class="form-floating">
+      <div class="">
+        <label for="formFile" class="form-label">Foto</label>
+        <input class="form-control form-control-sm" id="formFile" type="file" name="foto">
+      </div>
+    </div>
 
-<!-- </body>
-</html> -->
+
+    <button class="btn btn-primary mt-3" type="submit">Submit</button>
+  </form>
+</main>
+<?= $this->endSection('content') ?>
